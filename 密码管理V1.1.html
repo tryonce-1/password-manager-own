@@ -846,6 +846,33 @@
             transform: translateY(0) translateX(0) rotate(0deg);
         }
     </style>
+
+    <style>
+        /* --- 新增: 密码生成器折叠样式 --- */
+        #toggle-generator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            margin-top: -10px;
+            margin-bottom: 15px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        #toggle-generator:hover {
+            border-color: var(--accent-color);
+        }
+        #inline-generator {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+            padding: 0 15px; /* 折叠时移除垂直内边距 */
+        }
+    </style>
 </head>
 
 <body>
@@ -898,8 +925,13 @@
                 <button id="regenerate-btn" class="btn btn-accent" title="重新生成密码" style="flex-shrink: 0;"><i class="fas fa-dice"></i>
                 </button>
             </div>
+            <!-- 新增: 折叠/展开触发器 -->
+            <div id="toggle-generator">
+                <span>自定义密码选项</span>
+                <i id="generator-icon" class="fas fa-chevron-down"></i>
+            </div>
             <!-- 集成密码生成器 -->
-            <div id="inline-generator" style="margin-top: -10px; margin-bottom: 15px; border: 2px dashed rgba(0,0,0,0.1); padding: 15px; border-radius: var(--border-radius);">
+            <div id="inline-generator" style="margin-top: -10px; margin-bottom: 15px; border: 2px dashed rgba(0,0,0,0.1); border-radius: var(--border-radius);">
                 <div class="setting-group" style="padding: 15px; margin-bottom: 15px; display: flex; align-items: center">
                     <label class="label-title" for="generator-length" style="width: 80px; margin-bottom: 0px; padding-bottom: 0px; border-bottom: none;">长度：</label>
                     <input type="number" id="generator-length" class="input-style" value="8" min="4" max="128" style="height: auto; padding: 8px; margin-bottom: 0px;">
@@ -977,7 +1009,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('auth-password').addEventListener('keydown', e => { if (e.key === 'Enter') authenticate(); });
             setupGeneratorUI();
-            setupBackToTopWidget();
+            setupFloatingWidgets();
             setupClearButtons();
             document.getElementById('main-title').addEventListener('dblclick', handleClearData);
         });
@@ -1200,7 +1232,7 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = async ev => {
-                const content = ev.target.result;
+const content = ev.target.result;
                 let importedAccounts = null;
 
                 // 智能识别：首先尝试解析为JSON
@@ -1369,6 +1401,14 @@
                 document.getElementById('site-url').value = ''; // 清空URL
                 document.getElementById('notes').value = '';                
                 generatePassword(); // 打开模态框时自动生成一个初始密码
+
+                // 新增: 确保每次打开时，自定义区域都是关闭的
+                const generator = document.getElementById('inline-generator');
+                const generatorIcon = document.getElementById('generator-icon');
+                generator.style.maxHeight = '0';
+                generator.style.padding = '0 15px';
+                generatorIcon.classList.remove('fa-chevron-up');
+                generatorIcon.classList.add('fa-chevron-down');
             }
             showModal(modal);
         }
@@ -1450,7 +1490,7 @@
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
-        function setupBackToTopWidget() {
+        function setupFloatingWidgets() {
             const root = document.documentElement;
             const backToTopBtn = document.getElementById('backToTopBtn');
             const search = document.getElementById('search-input');
@@ -1539,6 +1579,50 @@
             });
         }
     </script>
-</body>
+    
+    <script>
+        function setupGeneratorUI() {
+            const regenerate = document.getElementById('regenerate-btn');
+            const lengthInput = document.getElementById('generator-length');
+            const toggleBtn = document.getElementById('toggle-generator');
+            const generator = document.getElementById('inline-generator');
+            const generatorIcon = document.getElementById('generator-icon');
+            
+            // 切换密码生成器显示状态
+            toggleBtn.addEventListener('click', function() {
+                const isOpen = generator.style.maxHeight && generator.style.maxHeight !== '0px';
+                if (!isOpen) {
+                    generator.style.maxHeight = generator.scrollHeight + 'px';
+                    generator.style.padding = '15px';
+                    generator.style.opacity = '1';
+                    generatorIcon.classList.remove('fa-chevron-down');
+                    generatorIcon.classList.add('fa-chevron-up');
+                } else {
+                    generator.style.maxHeight = '0';
+                    generator.style.padding = '0 15px';
+                    generator.style.opacity = '0';
+                    generatorIcon.classList.remove('fa-chevron-up');
+                    generatorIcon.classList.add('fa-chevron-down');
+                }
+            });
+            
+            document.querySelectorAll('#inline-generator input').forEach(el => {
+                el.addEventListener('change', generatePassword);
+            });
 
+            regenerate.addEventListener('click', generatePassword);
+
+            lengthInput.addEventListener('wheel', e => {
+                e.preventDefault();
+                const step = e.deltaY < 0 ? 1 : -1;
+                const currentValue = parseInt(lengthInput.value, 10);
+                const newValue = currentValue + step;
+                if (newValue >= parseInt(lengthInput.min, 10) && newValue <= parseInt(lengthInput.max, 10)) {
+                    lengthInput.value = newValue;
+                    generatePassword();
+                }
+            });
+        }
+    </script>
+</body>
 </html>
