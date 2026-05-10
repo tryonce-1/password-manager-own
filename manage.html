@@ -128,7 +128,7 @@
             display: flex;
             gap: 12px;
             margin-bottom: 24px;
-            flex-wrap: wrap;
+            align-items: center;
             animation: fadeInUp 0.6s ease-out 0.1s both;
         }
 
@@ -187,36 +187,49 @@
         /* Search */
         .search-box {
             position: relative;
-            margin-bottom: 24px;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
+            width: 44px;
+            height: 44px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            flex-shrink: 0;
         }
-
+        .search-box.active {
+            flex-grow: 1; /* 占据剩余空间 */
+            width: auto;
+        }
         .search-box input {
             width: 100%;
-            padding: 16px 20px 16px 48px;
-            border: 2px solid transparent;
+            height: 100%;
+            padding: 10px 15px 10px 45px;
+            border: 2px solid var(--bg-sand);
             border-radius: var(--radius-lg);
-            font-family: inherit;
-            font-size: 1rem;
             background: var(--bg-white);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.25s ease;
+            opacity: 0;
+            cursor: pointer;
+            transition: opacity  0.3s;
         }
 
-        .search-box input:focus {
-            outline: none;
+        .search-box.active input {
+            opacity: 1;
             border-color: var(--primary-light);
-            box-shadow: var(--shadow-md);
+            cursor: text;
         }
+		
+		.search-box input:focus {
+			outline: none;
+			border-color: var(--primary-light);
+		}
 
         .search-box svg {
             position: absolute;
-            left: 18px;
+            left: 13px;
             top: 50%;
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
             fill: var(--text-muted);
+            z-index: 2;
+            cursor: pointer;
         }
 
         /* Password List */
@@ -703,8 +716,12 @@
                 font-size: 1.2rem;
             }
             .action-bar {
-                flex-direction: column;
-                gap: 8px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr auto;
+            }
+            .search-box.active {
+                grid-column: 1 / -1; /* 展开时独占一行 */
+                margin-top: 8px;
             }
             .btn {
                 width: 100%;
@@ -781,11 +798,10 @@
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
                 导入
             </button>
-        </div>
-
-        <div class="search-box">
+        <div class="search-box" onclick='toggleSearch(true)'>
             <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input type="text" id="searchInput" placeholder="搜索网站、账号..." oninput="filterPasswords()">
+            <input type="text" id="searchInput" placeholder="搜索网站、账号..." oninput="filterPasswords()" onblur="toggleSearch(false)">
+        </div>
         </div>
 
         <div class="password-list" id="passwordList">
@@ -921,6 +937,21 @@
             return `<div class="favicon">${initial}</div>`;
         }
 
+		function toggleSearch(expand) {
+			const container = document.querySelector('.search-box');
+			const input = document.getElementById('searchInput');
+			
+			if (expand) {
+				container.classList.add('active');
+				input.focus();
+			} else {
+				// 如果输入框没内容，则收起
+				if (input.value.trim() === "") {
+					container.classList.remove('active');
+				}
+			}
+		}
+
         function renderPasswords() {
             const list = document.getElementById('passwordList');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -976,7 +1007,7 @@
 
         // Filter passwords
         function filterPasswords() {
-            renderPasswords();
+			renderPasswords();
         }
 
         // Modal functions
