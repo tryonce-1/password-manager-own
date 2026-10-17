@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>密码管家</title>
+<title>SK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -44,6 +44,9 @@ body::before{content:'';position:fixed;top:0;bottom:0;left:50%;width:800px;max-w
 .password-item:hover{background:#F7F9F8}
 .password-item:hover::before{opacity:1}
 .favicon{width:32px;height:32px;border-radius:7px;display:grid;place-items:center;background:#EEF2EF;color:var(--ink);font-weight:600;font-size:.95rem;flex-shrink:0;border:1px solid var(--line2)}
+.favicon svg{width:18px;height:18px;flex-shrink:0}
+.fav-link{background:#EAF0FE;color:#2456D8;border-color:#CBD5F4}
+.fav-nolink{background:#F0F2F6;color:#68707D;border-color:#E4E7EC}
 .password-item img{width:32px;height:32px;border-radius:7px;flex-shrink:0;background:#fff;border:1px solid var(--line2);object-fit:cover}
 .password-info{flex:1;min-width:0}
 .password-title{font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -53,9 +56,10 @@ body::before{content:'';position:fixed;top:0;bottom:0;left:50%;width:800px;max-w
 .password-meta{font-size:.7rem;color:var(--mut);margin-top:1px;font-family:var(--mono)}
 .password-actions{display:flex;gap:6px;flex-shrink:0}
 .icon-btn{height:30px;min-width:30px;padding:0 9px;border-radius:6px;border:1px solid var(--line);background:#fff;display:inline-flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;font-family:inherit;font-size:.78rem;color:var(--sub);transition:.12s;box-shadow:0 -2px 0 rgba(0,0,0,.05) inset}
+.icon-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .icon-btn:hover{border-color:#CBD5CD;color:var(--ink)}
-.copy-btn{background:var(--ink);border-color:var(--ink);color:#fff}
-.copy-btn:hover{background:#000;color:#fff}
+.copy-btn{background:#EAF0FE;border-color:#CBD5F4;color:#2456D8}
+.copy-btn:hover{background:#DCE6FD;border-color:#B4C6F5;color:#1744BF}
 .icon-btn.danger:hover{color:var(--danger);border-color:#E8C4C4;background:#FFF7F7}
 .empty{text-align:center;padding:54px 20px;color:var(--mut)}
 .empty h3{color:var(--sub);margin:12px 0 4px;font-size:.98rem;font-weight:600}
@@ -219,11 +223,8 @@ body::before{
   box-shadow:none;
 }
 .icon-btn:hover{background:#f8f9fb;border-color:#b9c2d0}
-.copy-btn,.copy-btn:hover{
-  background:#20242c;
-  border-color:#20242c;
-  color:#fff;
-}
+.copy-btn{background:#EAF0FE;border-color:#CBD5F4;color:#2456D8}
+.copy-btn:hover{background:#DCE6FD!important;border-color:#B4C6F5!important;color:#1744BF!important}
 .icon-btn.danger:hover{color:var(--danger);border-color:#e5c1c1;background:#fff7f7}
 .empty{padding:62px 20px}
 .empty h3{color:#303744}
@@ -398,10 +399,11 @@ body::before{
 }
 .icon-btn:hover{background:#f8f9fb;border-color:#b9c2d0}
 .copy-btn,.copy-btn:hover{
-  background:#20242c;
-  border-color:#20242c;
-  color:#fff;
+  background:#EAF0FE;
+  border-color:#CBD5F4;
+  color:#2456D8;
 }
+.copy-btn:hover{background:#DCE6FD;border-color:#B4C6F5;color:#1744BF}
 .icon-btn.danger:hover{color:var(--danger);border-color:#e5c1c1;background:#fff7f7}
 .empty{padding:62px 20px}
 .empty h3{color:#303744}
@@ -534,12 +536,14 @@ body::before{
 .password-item{border-bottom-color:var(--line2)}
 .password-item:hover{background:#f7f8fb}
 .password-item::before{background:var(--zed)}
-.favicon,.password-item img{background:#f0f2f6;border-color:var(--line)}
-.favicon{color:var(--zed)}
+.password-item img{background:#f0f2f6;border-color:var(--line)}
+.favicon.fav-link{background:#EAF0FE;border-color:#CBD5F4;color:#2456D8}
+.favicon.fav-nolink{background:#F0F2F6;border-color:var(--line);color:#68707D}
 .password-username{color:var(--sub)}
 .password-title a:hover{color:var(--zed)}
 .icon-btn{min-height:38px;box-shadow:none}
-.copy-btn,.copy-btn:hover{background:#20242c;border-color:#20242c;color:#fff}
+.copy-btn{background:#EAF0FE!important;border-color:#CBD5F4!important;color:#2456D8!important}
+.copy-btn:hover{background:#DCE6FD!important;border-color:#B4C6F5!important;color:#1744BF!important}
 .icon-btn.danger:hover{color:var(--danger);border-color:#e5c1c1;background:#fff7f7}
 .empty{color:var(--mut)}
 .empty h3{color:var(--ink)}
@@ -563,8 +567,17 @@ body::before{
 .file-input-label{background:#f7f8fa;border-color:#cbd1db;color:var(--sub)}
 .toast{background:#e7edf5;color:#15191e}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--zed);outline-offset:3px}
+html,body{height:100%;overflow:hidden!important}
+body{display:flex!important;flex-direction:column!important;min-height:100vh;align-items:center}
+.wrap{flex:1!important;min-height:0!important;width:100%!important;display:flex!important;flex-direction:column!important;padding-bottom:24px!important}
+.top,.bar,.hint{flex-shrink:0!important}
+.password-list{flex:1!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain;scrollbar-width:none;-ms-overflow-style:none}
+.password-list>.password-item,.password-item{flex-shrink:0!important}
+.password-list::-webkit-scrollbar{width:0;height:0;display:none}
+.password-list::-webkit-scrollbar-thumb{background:transparent}
+.password-list::-webkit-scrollbar-track{background:transparent}
 @media(max-width:600px){
-  .wrap{padding:0 16px 56px}
+  .wrap{padding:0 16px 16px!important}
   .wrap::before{left:16px}
   .wrap::after{right:16px}
   .top::before,.top::after,.bar::before,.bar::after,.hint::before,.hint::after{left:-16px;right:-16px}
@@ -576,9 +589,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   .bar{flex-wrap:wrap}
   .bar .search{flex:1 1 100%}
   .bar .btn{margin-left:auto}
-  .password-item{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px 12px;padding:13px 12px}
-  .password-info{grid-column:2;grid-row:1;width:auto;order:initial}
-  .password-actions{grid-column:2;width:100%;justify-content:flex-start;gap:6px;order:initial}
+  body .password-item{display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;height:auto!important;min-height:0!important;gap:10px 12px;padding:13px 12px}
+  body .password-item .favicon{flex-shrink:0!important;align-self:flex-start}
+  body .password-info{flex:1 1 calc(100% - 48px)!important;min-width:0!important;width:auto!important;order:initial}
+  body .password-actions{flex:1 1 100%!important;width:100%!important;justify-content:flex-end!important;gap:6px!important;order:initial;flex-wrap:wrap;margin-top:2px}
+  body .password-title,body .password-username{white-space:normal!important;overflow-wrap:anywhere}
+  body .password-item::before{top:10px!important;bottom:10px!important}
   .modal{padding:20px}
 }
 </style>
@@ -639,17 +655,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 <div class="toast" id="toast"></div>
 <script>
 let passwords=JSON.parse(localStorage.getItem('passwords'))||[];
-function getFaviconHtml(url,siteName){if(url){try{let d=(new URL(url)).hostname;return '<img src="https://www.google.com/s2/favicons?sz=64&domain='+d+'" alt="" onerror="this.style.display=\'none\'">'}catch(e){}}return '<div class="favicon">'+siteName.charAt(0).toUpperCase()+'</div>'}
-function renderPasswords(){let list=document.getElementById('passwordList');let q=document.getElementById('searchInput').value.toLowerCase();let f=passwords.filter(p=>p.siteName.toLowerCase().includes(q)||p.username.toLowerCase().includes(q));document.getElementById('totalCount').textContent=passwords.length;document.getElementById('listHint').textContent=f.length+' 项';if(f.length===0){list.innerHTML='<div class="empty"><h3>'+(passwords.length===0?'还没有密码':'没有匹配结果')+'</h3><p>'+(passwords.length===0?'点击新增，添加第一条':'换个关键词试试')+'</p><button class="btn btn-zed" onclick="openModal(\'add\')">+ 新增密码</button></div>';return}
-list.innerHTML=f.map((p,index)=>{let fav=getFaviconHtml(p.url||'',p.siteName);let name=p.url?'<a href="'+p.url+'" target="_blank">'+escapeHtml(p.siteName)+'</a>':escapeHtml(p.siteName);let notes=p.notes?'<div class="password-username">'+escapeHtml(p.notes.substring(0,30))+'</div>':'';return '<div class="password-item">'+fav+'<div class="password-info"><div class="password-title">'+name+'</div><div class="password-username">'+escapeHtml(p.username)+'</div>'+notes+'<div class="password-meta">'+(p.createdAt?escapeHtml(p.createdAt):'')+'</div></div><div class="password-actions"><button class="icon-btn copy-btn" onclick="copyPassword(this,\''+escapeHtml(p.password).replace(/\'/g,"\\'")+'\')">复制</button><button class="icon-btn" onclick="editPassword('+index+')">编辑</button><button class="icon-btn danger" onclick="deletePassword('+index+')">删除</button></div></div>'}).join('')}
+function getFaviconHtml(url,siteName){let hasLink=false;if(url&&String(url).trim()){try{let u=new URL(String(url).trim());if(u.hostname)hasLink=true}catch(e){hasLink=false}}if(hasLink){return '<div class="favicon fav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></div>'}return '<div class="favicon fav-nolink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg></div>'}
+function renderPasswords(){let list=document.getElementById('passwordList');let q=document.getElementById('searchInput').value.toLowerCase();let f=passwords.map((p,i)=>({p:p,i:i})).filter(x=>x.p.siteName.toLowerCase().includes(q)||x.p.username.toLowerCase().includes(q));document.getElementById('totalCount').textContent=passwords.length;document.getElementById('listHint').textContent=f.length+' 项';if(f.length===0){list.innerHTML='<div class="empty"><h3>'+(passwords.length===0?'还没有密码':'没有匹配结果')+'</h3><p>'+(passwords.length===0?'点击新增，添加第一条':'换个关键词试试')+'</p><button class="btn btn-zed" onclick="openModal(\'add\')">+ 新增密码</button></div>';return}
+list.innerHTML=f.map(x=>{let p=x.p;let index=x.i;let fav=getFaviconHtml(p.url||'',p.siteName);let name=p.url?'<a href="'+p.url+'" target="_blank">'+escapeHtml(p.siteName)+'</a>':escapeHtml(p.siteName);let notes=p.notes?'<div class="password-username">'+escapeHtml(p.notes.substring(0,30))+'</div>':'';let svgCopy='<svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';let svgEdit='<svg viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>';let svgDel='<svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';return '<div class="password-item">'+fav+'<div class="password-info"><div class="password-title">'+name+'</div><div class="password-username">'+escapeHtml(p.username)+'</div>'+notes+'<div class="password-meta">'+escapeHtml(formatDate(p.createdAt))+'</div></div><div class="password-actions"><button class="icon-btn copy-btn" title="复制" data-pwd="'+encodeURIComponent(p.password||'')+'" onclick="copyPassword(this)">'+svgCopy+'</button><button class="icon-btn" title="编辑" onclick="editPassword('+index+')">'+svgEdit+'</button><button class="icon-btn danger" title="删除" onclick="deletePassword('+index+')">'+svgDel+'</button></div></div>'}).join('')}
 function escapeHtml(t){let d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function formatDate(v){if(!v)return '';let s=String(v).trim();let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+String(m[2]).padStart(2,'0')+'-'+String(m[3]).padStart(2,'0');let d=new Date(s);if(!isNaN(d))return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return s}
 function filterPasswords(){renderPasswords()}
 function openModal(mode,index=-1){let m=document.getElementById('passwordModal');let t=document.getElementById('modalTitle');let f=document.getElementById('passwordForm');if(mode==='add'){t.textContent='新增密码';f.reset();document.getElementById('editIndex').value=-1;document.getElementById('generatedPassword').textContent='点击生成'}else{t.textContent='编辑密码';let p=passwords[index];document.getElementById('editIndex').value=index;document.getElementById('siteName').value=p.siteName;document.getElementById('url').value=p.url||'';document.getElementById('username').value=p.username;document.getElementById('password').value=p.password;document.getElementById('notes').value=p.notes||'';document.getElementById('generatedPassword').textContent='点击生成'}m.classList.add('active')}
 function closeModal(){document.getElementById('passwordModal').classList.remove('active')}
 function savePassword(e){e.preventDefault();let i=parseInt(document.getElementById('editIndex').value);let n=new Date();let ds=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');let d={siteName:document.getElementById('siteName').value,url:document.getElementById('url').value,username:document.getElementById('username').value,password:document.getElementById('password').value,notes:document.getElementById('notes').value};if(i===-1){d.createdAt=ds;passwords.push(d);showToast('已添加')}else{d.createdAt=passwords[i].createdAt||ds;passwords[i]=d;showToast('已更新')}saveToStorage();renderPasswords();closeModal()}
 function editPassword(i){openModal('edit',i)}
 function deletePassword(i){if(confirm('确定删除这条记录吗？')){passwords.splice(i,1);saveToStorage();renderPasswords();showToast('已删除')}}
-function copyPassword(a,b){let btn=null,pwd='';if(typeof a==='string'){pwd=a}else{btn=a;pwd=b}navigator.clipboard.writeText(pwd).then(()=>{showToast('已复制')}).catch(()=>showToast('复制失败'))}
+function copyPassword(a,b){let pwd='';if(a&&a.getAttribute&&a.hasAttribute('data-pwd')){pwd=decodeURIComponent(a.getAttribute('data-pwd')||'')}else if(typeof a==='string'){pwd=a}else{pwd=b||''}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(pwd).then(()=>{showToast('已复制')}).catch(()=>{fallbackCopy(pwd)})}else{fallbackCopy(pwd)}}
+function fallbackCopy(t){try{let ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('已复制')}catch(e){showToast('复制失败')}}
 function togglePasswordVisibility(){let i=document.getElementById('password');i.type=i.type==='password'?'text':'password'}
 function generatePassword(){let len=parseInt(document.getElementById('passwordLength').value);let c='';if(document.getElementById('useNumbers').checked)c+='0123456789';if(document.getElementById('useUppercase').checked)c+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(document.getElementById('useLowercase').checked)c+='abcdefghijklmnopqrstuvwxyz';if(document.getElementById('useSpecial').checked)c+='!@#$%^&*()_+-=[]{}|;:,.<>?';if(!c){showToast('至少选一种字符');return}let s='';let a=new Uint32Array(len);crypto.getRandomValues(a);for(let k=0;k<len;k++)s+=c[a[k]%c.length];document.getElementById('generatedPassword').textContent=s;document.getElementById('password').value=s}
 function updateLengthDisplay(){document.getElementById('lengthValue').textContent=document.getElementById('passwordLength').value}
